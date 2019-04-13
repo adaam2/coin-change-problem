@@ -1,3 +1,11 @@
+## Setting up the application
+
+Run:
+
+```
+bundle install
+```
+
 ## Running the application
 
 To run the coin denominator (e.g. the coin changing problem), run the `main.rb` file:
