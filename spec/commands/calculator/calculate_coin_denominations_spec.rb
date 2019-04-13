@@ -26,11 +26,11 @@ RSpec.describe Calculator::CalculateCoinDenominations do
       end
     end
 
-    context 'When there is no change to give (underpaid)' do
+    context 'When the user has underpaid' do
       subject(:context) { Calculator::CalculateCoinDenominations.call(change: 5.27) }
 
-      it 'returns a failed status' do
-        expect(context).to be_a_failure
+      it 'returns no coin denominations' do
+        expect(context.coins).to be_empty
       end
 
       it 'returns a useful message explaining the reason for failure' do

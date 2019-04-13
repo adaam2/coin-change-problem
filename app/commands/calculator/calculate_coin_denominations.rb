@@ -7,8 +7,6 @@ module Calculator
     DENOMINATIONS = [2, 1, 0.5, 0.25, 0.1, 0.05, 0.02, 0.01]
 
     def call
-      context.fail!(message: 'No change to give') unless provide_change?
-
       coins = []
       remaining_amount = -context.change
 
@@ -29,13 +27,19 @@ module Calculator
       coins_format = coins.map { |coin| "£#{coin}" }
       context.coins = coins
 
-      context.message = "Paid £#{context.amount}.\nPrice was £#{context.price}.\nChange given: £#{-context.change} in denominations of #{coins_format.join(', ')}"
+      context.message = "Paid £#{context.amount}.\nPrice was £#{context.price}."
+
+      if coins.empty?
+        context.message = "No change to give"
+      else
+        context.message += "\nChange given: £#{-context.change} in denominations of #{coins_format.join(', ')}"
+      end
     end
 
     private
 
-    def provide_change?
-      context.change <= 0
+    def underpaid?
+      context.change < 0
     end
 
     def denominations

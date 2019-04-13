@@ -15,11 +15,11 @@ class VendingMachine
   end
 
   def start_purchase
-    selection = @prompt.select('Select product:', @products)
+    selection = @prompt.select('Select product:', @products, required: true)
 
     puts "You have selected #{selection[:name]} which is £#{selection[:price]}"
 
-    payment_amount = @prompt.ask('Enter payment amount:', convert: :float)
+    payment_amount = @prompt.ask('Enter payment amount:', convert: :float, required: true)
 
     result = Calculator::Service.call(price: selection[:price], amount: payment_amount)
 
