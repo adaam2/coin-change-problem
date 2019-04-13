@@ -1,6 +1,10 @@
 source "https://rubygems.org"
 
-gem 'pry'
 gem 'interactor'
 gem 'money'
-gem 'rspec'
+gem 'tty-prompt'
+
+group :test, :development do
+  gem 'rspec'
+  gem 'pry'
+end
