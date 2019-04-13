@@ -1,0 +1,28 @@
+require 'tty-prompt'
+require 'pry'
+require_relative '../commands/calculator/service'
+
+class VendingMachine
+  attr_reader :products
+
+  def initialize(products)
+    @products = products
+    @prompt = TTY::Prompt.new
+  end
+
+  def start_purchase
+    selection = @prompt.select('Select product:', @products)
+
+    puts "You have selected #{selection[:name]} which is £#{selection[:price]}"
+
+    payment_amount = @prompt.ask('Enter payment amount:', convert: :float)
+
+    result = Calculator::Service.call(price: selection[:price], amount: payment_amount)
+
+    puts result.message
+  end
+
+  def context
+    proc { super }
+  end
+end
