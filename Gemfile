@@ -7,4 +7,5 @@ gem 'tty-prompt'
 group :test, :development do
   gem 'rspec'
   gem 'pry'
+  gem 'faker'
 end
