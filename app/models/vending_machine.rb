@@ -6,7 +6,11 @@ class VendingMachine
   attr_reader :products
 
   def initialize(products)
-    @products = products
+    @products = products.inject({}) do |result, product|
+      result[product[:name]] ||= product
+      result
+    end
+
     @prompt = TTY::Prompt.new
   end
 
@@ -20,9 +24,5 @@ class VendingMachine
     result = Calculator::Service.call(price: selection[:price], amount: payment_amount)
 
     puts result.message
-  end
-
-  def context
-    proc { super }
   end
 end
