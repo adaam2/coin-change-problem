@@ -1,14 +1,10 @@
+require 'faker'
+
 require_relative './app/models/vending_machine'
+require_relative './app/models/product'
 
-products = {
-  snickers: {
-    name: 'Snickers',
-    price: 10.99
-  },
-  mars: {
-    name: 'Mars Bar',
-    price: 9.99
-  }
-}
+products = (1...10).map do |i|
+  Product.new(Faker::Commerce.product_name, Faker::Commerce.price)
+end
 
-VendingMachine.new(products).start_purchase
+VendingMachine.new(products.map(&:to_h)).start_purchase
