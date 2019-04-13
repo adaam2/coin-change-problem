@@ -1,6 +1,6 @@
 # Require all of the server side files for the test suite
 # so we auto detect codefiles without loads of messy requires!
-Dir["./**/*.rb"].each {|file| require file }
+Dir["./app/**/*.rb"].each {|file| require file }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
